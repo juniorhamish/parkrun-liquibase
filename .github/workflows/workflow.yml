@@ -1,0 +1,29 @@
+name: Database Migration
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # 1. Install Liquibase
+      - uses: liquibase/setup-liquibase@v2
+        with:
+          version: '5.0.0'
+          edition: 'community'
+
+      # 2. Install Database Driver (Required for Liquibase 5.0+ Community)
+      - name: Install Driver
+        run: liquibase lpm add postgresql --global  # Change to your DB type
+
+      # 3. Run Migration
+      - name: Run Liquibase Update
+        run: liquibase update --changelog-file=migrations/changelog-root.yaml
+        env:
+          LIQUIBASE_COMMAND_URL: ${{ secrets.DB_URL }}
+          LIQUIBASE_COMMAND_USERNAME: ${{ secrets.DB_USERNAME }}
+          LIQUIBASE_COMMAND_PASSWORD: ${{ secrets.DB_PASSWORD }}
