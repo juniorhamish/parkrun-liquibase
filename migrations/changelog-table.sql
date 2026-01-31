@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset David Johnston:1
+--changeset David Johnston:1 context:prod
 --comment: Add runners table
 CREATE TABLE runners
 (
@@ -9,7 +9,7 @@ CREATE TABLE runners
 );
 --rollback DROP TABLE runners;
 
---changeset David Johnston:2
+--changeset David Johnston:2 context:prod
 --comment: Add last scrape metadata table
 CREATE TABLE last_scrape_metadata
 (

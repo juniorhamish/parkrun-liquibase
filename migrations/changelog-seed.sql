@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset David Johnston:1
+--changeset David Johnston:1 labels:seed context:prod
 --comment: Add seed data
 INSERT INTO runners(id)
 VALUES ('1638049'),
@@ -380,7 +380,7 @@ VALUES ('1638049'),
        ('1140242');
 --rollback delete from runners;
 
---changeset David Johnston:2
+--changeset David Johnston:2 labels:seed context:prod
 --comment: Add last scrape time
 INSERT INTO last_scrape_metadata(last_scrape_time)
 VALUES ('2025-09-27 12:00:00 Europe/London');
